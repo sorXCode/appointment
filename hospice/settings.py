@@ -37,6 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
+    'appointment',
 ]
 
 MIDDLEWARE = [
@@ -98,6 +103,24 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}
+DJOSER = {
+    # other djoser settings
+    'SERIALIZERS': {
+         #other serializers
+
+         'user_create': 'users.serializers.CustomUserCreateSerializer',
+
+         #other serializers
+    }
+}
 
 
 # Internationalization
