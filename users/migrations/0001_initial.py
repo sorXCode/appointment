@@ -6,19 +6,18 @@ from django.conf import settings
 
 
 logger = logging.getLogger(__name__)
-content_type = ContentType.objects.get_for_model(User)
 
 def add_group_permissions(apps, schema_editor):
+    content_type = ContentType.objects.get_for_model(User)
     groups = {
+        "patient": [
+            "can_book_appointment",
+            "can_view_appointments",
+        ],
         "doctor": [
             "can_view_appointments",
             "can_block_off",
         ],
-        "patient": [
-            "can_book_appointment",
-            "can_view_appointments",
-            "remove_appointment",
-        ]
     }
     
     for group_name, perms in groups.items():
