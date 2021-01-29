@@ -8,10 +8,5 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-ARG DATABASE_URL
-ENV DATABASE_URL=${DATABASE_URL}
-
-RUN python3 manage.py migrate
-
-EXPOSE 80
-CMD ["python3", "manage.py", "runserver"]
+EXPOSE $PORT
+CMD python3 manage.py migrate && gunicorn hospice.wsgi -b :$PORT --log-level debug

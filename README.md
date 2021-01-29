@@ -17,7 +17,11 @@ NOTE: To run api,set the following env variables
 
 ```shell
 export SECRET_KEY={ANY-STRING-HARD-QUESS}
-export DATABASE_URL="./db.sqlite3"
+export DB_NAME=${DB_NAME}
+export DB_USER=${DB_USER}
+export DB_PASSWORD=${DB_PASSWORD}
+export DB_HOST=${DB_HOST}
+export DB_PORT=${DB_PORT}
 export DEBUG=True #optional
 python3 manage.py runserver
 ```
@@ -35,11 +39,15 @@ python3 manage.py migrate
 ### To build docker image
 
 ```shell
-docker build --build-arg DATABASE_URL={SQLITE3_URL} . -t {IMAGE_NAME}
+docker build . -t {IMAGE_NAME}
 ```
 
 ### To run image
 
 ```shell
-docker run --env DATABASE_URL={SQLITE3_URL} --env SECRET_KEY={SECRET_KEY} -p :80 --name {CONTAINER_NAME} {IMAGE_NAME}
+docker run \
+    --env DB_NAME={DB_NAME} \
+    --env DB_USER={DB_USER} \
+    --env DB_PASSWORD={DB_PASSWORD} \
+    --env DB_HOST={DB_HOST} -p :$PORT --name {CONTAINER_NAME} {IMAGE_NAME}
 ```
