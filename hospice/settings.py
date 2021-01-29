@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY",'z21lf7krsxh=9_a_uwdk%lh6@x*(_(80i7al^4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -81,8 +81,12 @@ WSGI_APPLICATION = 'hospice.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get("DB_NAME", None),
+        'USER': os.environ.get("DB_USER", None),
+        'PASSWORD':os.environ.get("DB_PASSWORD", None),
+        'HOST': os.environ.get("DB_HOST", None),
+        'PORT': os.environ.get("DB_PORT", 5432),
     }
 }
 
